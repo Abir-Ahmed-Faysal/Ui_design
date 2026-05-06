@@ -2,6 +2,7 @@ import { Hero } from "@/components/hero";
 import { CoreServices } from "@/components/core-services";
 import { AgencyBehindMarquee } from "@/components/agency-behind-marquee";
 import { DrivingDemand } from "@/components/driving-demand";
+import { ServicesSection } from "@/components/services-section";
 import { StackedCards } from "@/components/stacked-cards";
 import { HorizontalScroll } from "@/components/horizontal-scroll";
 import { FeaturedWork } from "@/components/featured-work";
@@ -15,6 +16,7 @@ export default function Home() {
         <CoreServices />
         <AgencyBehindMarquee />
         <DrivingDemand />
+        <ServicesSection />
         <StackedCards />
         <HorizontalScroll />
         <FeaturedWork />
