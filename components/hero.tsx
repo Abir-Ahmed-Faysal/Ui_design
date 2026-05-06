@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 const AWARDS = [
@@ -45,6 +45,17 @@ const itemVariants = {
 
 export function Hero() {
   const [isLoading, setIsLoading] = useState(true);
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     // Simulate loading time to show the Transition Loader
@@ -75,7 +86,21 @@ export function Hero() {
         )}
       </AnimatePresence>
 
-      <section className="relative w-full min-h-screen flex flex-col items-center justify-center pt-48 pb-16 px-4 md:px-8 z-20 overflow-hidden bg-[#111111]">
+      <section ref={containerRef} className="relative w-full min-h-screen flex flex-col items-center justify-center pt-48 pb-16 px-4 md:px-8 z-20 overflow-hidden bg-deep-black">
+        {/* Layered Background Imagery */}
+        <motion.div style={{ opacity }} className="absolute inset-0 pointer-events-none z-0">
+          <motion.div style={{ y: y1 }} className="absolute top-[10%] left-[5%] w-64 h-80 opacity-20 rotate-[-6deg] overflow-hidden rounded-2xl hidden md:block">
+            <Image src="https://rise-atseven.transforms.svdcdn.com/production/images/RedBull-Instagram-Post-45.png?w=800&q=80&auto=format&fit=crop" alt="Layered Art 1" fill className="object-cover" />
+          </motion.div>
+          <motion.div style={{ y: y2 }} className="absolute top-[30%] right-[5%] w-72 h-96 opacity-15 rotate-[8deg] overflow-hidden rounded-2xl hidden lg:block">
+            <Image src="https://rise-atseven.transforms.svdcdn.com/production/images/Placeholder-logos/gogle.png?w=800&q=80&auto=format&fit=crop" alt="Layered Art 2" fill className="object-cover grayscale" />
+          </motion.div>
+          <motion.div style={{ y: y3 }} className="absolute bottom-[-10%] left-[20%] w-[30rem] h-[20rem] opacity-10 rotate-[2deg] overflow-hidden rounded-3xl hidden xl:block">
+            <Image src="https://rise-atseven.transforms.svdcdn.com/production/images/Placeholder-logos/tiktok.png?w=800&q=80&auto=format&fit=crop" alt="Layered Art 3" fill className="object-cover grayscale" />
+          </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-deep-black/60 to-deep-black" />
+        </motion.div>
+
         <motion.div 
           className="flex flex-col items-center w-full max-w-7xl mx-auto z-10"
           variants={containerVariants}
