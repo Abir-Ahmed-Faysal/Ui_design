@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import { CustomCursor } from "@/components/custom-cursor";
 import Script from "next/script";
 
@@ -65,6 +66,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <CustomCursor />
+        <AnnouncementBar />
         <Header />
         {children}
       </body>
