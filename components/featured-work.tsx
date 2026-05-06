@@ -92,7 +92,7 @@ const PROJECTS = [
     name: "PrettyLittleThing",
     year: "[2021-2023]",
     category: "Outfits",
-    outcome: "Driving discovery for everything "outfits" for PLT",
+    outcome: "Driving discovery for everything ‘outfits’ for PLT",
     colour: "#fecacc",
     img: "https://rise-atseven.transforms.svdcdn.com/production/images/Screenshot-2025-06-23-at-14.43.56.png?w=800&h=600&q=90&auto=format&fit=crop",
   },

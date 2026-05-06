@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/services-section";
 import { StackedCards } from "@/components/stacked-cards";
 import { FeaturedWork } from "@/components/featured-work";
 import { WhatsNew } from "@/components/whats-new";
+import { ReadyCta } from "@/components/ready-cta";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <StackedCards />
         <FeaturedWork />
         <WhatsNew />
+        <ReadyCta />
       </main>
       <Footer />
     </>
