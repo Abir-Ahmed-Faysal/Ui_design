@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Logo } from "./logo";
 
 const NAV_LINKS = [
   { label: "Services", href: "/services" },
@@ -94,22 +94,66 @@ export function Header() {
         }`}
       >
         <div className="container mx-auto px-6 h-24 flex items-center justify-between">
-          <Link href="/" className="relative z-[60] flex items-center">
-            <motion.span 
-              layoutId="brand-logo" 
-              className="text-pure-white text-2xl font-bold tracking-tighter inline-block origin-left"
+          <div className="flex items-center">
+            <Link href="/" className="relative z-[60] flex w-32 md:w-40 text-pure-white">
+              <Logo />
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center ml-10 space-x-1">
+              {NAV_LINKS.filter(l => l.label !== "Get in touch").map(link => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="text-pure-white px-4 py-2 font-medium tracking-tight hover:text-gray-300 transition-colors text-sm"
+                >
+                  {link.label}
+                  {link.label === "Work" && (
+                    <span className="inline-flex items-center justify-center bg-[#a6ffed] text-deep-black text-[10px] px-1.5 py-0.5 rounded-full ml-1 absolute -mt-3">
+                      25
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-4 relative z-[60]">
+            <Link 
+              href="/connect-with-us"
+              className="hidden md:inline-flex group items-center justify-center bg-pure-white text-deep-black px-6 py-2.5 rounded-full font-medium hover:scale-105 transition-transform duration-300 overflow-hidden relative"
             >
-              Rise at Seven
-            </motion.span>
-          </Link>
+              <div className="relative flex items-center">
+                <span>Get in touch</span>
+                <svg className="ml-2 w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19L19 5M19 5v10M19 5H9" />
+                </svg>
+              </div>
+            </Link>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-pure-white p-2 relative z-[60]"
+            className="inline-flex items-center justify-center w-12 h-8 relative z-[60]"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+            <div className="flex w-5 h-2 flex-col items-start justify-between">
+              <div
+                className={`w-full h-px relative -top-px transition-transform duration-500 transform ${
+                  isMenuOpen ? "rotate-45 translate-y-1" : "rotate-0"
+                }`}
+              >
+                <div className="w-full h-0.5 bg-pure-white"></div>
+              </div>
+              <div
+                className={`w-full h-px transition-transform duration-500 transform ${
+                  isMenuOpen ? "-rotate-45 -translate-y-1" : "rotate-0"
+                }`}
+              >
+                <div className="w-full h-0.5 bg-pure-white"></div>
+              </div>
+            </div>
           </button>
+          </div>
         </div>
       </header>
 
