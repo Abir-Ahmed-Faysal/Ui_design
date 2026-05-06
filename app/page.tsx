@@ -4,8 +4,8 @@ import { AgencyBehindMarquee } from "@/components/agency-behind-marquee";
 import { DrivingDemand } from "@/components/driving-demand";
 import { ServicesSection } from "@/components/services-section";
 import { StackedCards } from "@/components/stacked-cards";
-import { HorizontalScroll } from "@/components/horizontal-scroll";
 import { FeaturedWork } from "@/components/featured-work";
+import { WhatsNew } from "@/components/whats-new";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -18,8 +18,8 @@ export default function Home() {
         <DrivingDemand />
         <ServicesSection />
         <StackedCards />
-        <HorizontalScroll />
         <FeaturedWork />
+        <WhatsNew />
       </main>
       <Footer />
     </>
