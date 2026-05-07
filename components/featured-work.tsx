@@ -115,7 +115,7 @@ export function FeaturedWork() {
                   src={project.img}
                   alt={project.name}
                   fill
-                  className="object-cover transition-transform duration-[1.5s] ease-custom group-hover:scale-105"
+                  className="object-cover transition-all duration-1000 ease-custom group-hover:scale-105"
                 />
                 
                 {/* Overlay Info */}

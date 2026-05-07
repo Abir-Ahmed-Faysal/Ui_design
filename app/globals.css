@@ -130,3 +130,27 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Custom Utility Classes */
+@layer utilities {
+  .container-fluid {
+    @apply w-full px-container;
+  }
+  
+  .px-container {
+    @apply px-[clamp(1.5rem,5vw,3rem)];
+  }
+  
+  .left-container {
+    @apply left-[clamp(1.5rem,5vw,3rem)];
+  }
+  
+  .bg-grey-light {
+    @apply bg-off-white;
+  }
+  
+  .ease-custom {
+    @apply transition-all duration-500;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+}

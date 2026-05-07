@@ -149,7 +149,7 @@ export function Header() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed inset-0 z-40 bg-black text-pure-white flex flex-col justify-center pt-24 px-container"
+            className="fixed inset-0 z-50 bg-black text-pure-white flex flex-col justify-center pt-24 px-container"
           >
             <div className="absolute inset-0 opacity-10 pointer-events-none">
                {/* Editorial background elements if needed */}
