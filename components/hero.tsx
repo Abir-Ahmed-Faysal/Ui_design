@@ -36,12 +36,12 @@ export function Hero() {
 
         {/* Main Editorial Headline */}
         <h1 className="text-pure-white text-[clamp(3.5rem,11vw,14rem)] font-bold leading-[0.85] tracking-[-0.04em] uppercase flex flex-col">
-          <div className="flex flex-wrap items-center gap-x-[0.2em]">
+          <div className="flex flex-wrap items-center gap-x-2">
             <TextSplitter text="We" delay={0.2} />
             <TextSplitter text="Create" delay={0.3} />
           </div>
           
-          <div className="flex flex-wrap items-center gap-x-[0.2em] -mt-[0.05em]">
+          <div className="flex flex-wrap items-center gap-x-2 -mt-[0.05em]">
             <TextSplitter text="Category" delay={0.5} />
             
             {/* Inline Media Element - REDBULL CARD */}

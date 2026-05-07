@@ -99,16 +99,23 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden xl:flex items-center ml-12 space-x-1">
+            <nav className="hidden xl:flex items-center ml-12 space-x-8">
               {NAV_LINKS.filter(l => l.label !== "Get in touch").map(link => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-pure-white px-4 py-2 font-medium tracking-tight hover:text-mint transition-colors text-sm uppercase"
+                  className="group inline-flex tracking-tight leading-tight font-medium relative text-sm uppercase"
                 >
-                  {link.label}
+                  <div className="relative overflow-hidden truncate">
+                    <div className="transition ease-custom group-hover:-translate-y-8">
+                      {link.label}
+                    </div>
+                    <div className="transition absolute top-0 left-0 translate-y-8 ease-custom group-hover:translate-y-0">
+                      {link.label}
+                    </div>
+                  </div>
                   {link.label === "Work" && (
-                    <span className="inline-flex items-center justify-center bg-mint text-black text-[9px] px-1.5 py-0.5 rounded-full ml-1 absolute -mt-2 font-bold">
+                    <span className="inline-flex items-center justify-center bg-mint text-black text-[9px] px-1.5 py-0.5 rounded-full ml-2 font-bold">
                       24
                     </span>
                   )}
