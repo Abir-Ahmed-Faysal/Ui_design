@@ -16,12 +16,12 @@ export function AnnouncementBar() {
   }, []);
 
   return (
-    <div className={`fixed top-0 left-0 w-full z-[100] bg-white p-2.5 flex justify-center border-b border-black/5 transition-all duration-500 ${
+    <div className={`fixed top-0 left-0 w-full z-[100] bg-white pt-2.5 px-2.5 pb-2.5 flex justify-center transition-all duration-500 ${
       hide ? "opacity-0 pointer-events-none -translate-y-full" : "opacity-100 translate-y-0"
     }`}>
       <Link 
         href="/category-leaderboard" 
-        className="group flex justify-center items-center text-xs text-center py-2 px-5 text-balance tracking-tight leading-none font-semibold rounded-2xl transition-all duration-500 lg:text-sm text-grey-900 bg-[#B2F6E3] pointer-fine:hover:rounded-md hover:brightness-95 shadow-sm w-full"
+        className="group flex justify-center items-center text-[10px] lg:text-xs w-full py-2 px-5 text-balance text-center tracking-tight leading-none font-semibold rounded-2xl transition-all duration-500 text-grey-900 bg-mint pointer-fine:hover:rounded-md hover:brightness-95 shadow-sm"
       >
         {/* Mobile Version */}
         <div className="block lg:hidden mt-0.5">

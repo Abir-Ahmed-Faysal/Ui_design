@@ -2,118 +2,163 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { TextSplitter } from "./ui/text-splitter";
 
-const PLATFORMS = [
-  { name: "Google", src: "https://rise-atseven.transforms.svdcdn.com/production/images/Placeholder-logos/gogle.png?w=400&q=100&auto=format&fit=crop" },
-  { name: "TikTok", src: "https://rise-atseven.transforms.svdcdn.com/production/images/Placeholder-logos/tiktok.png?w=400&q=100&auto=format&fit=crop" },
-  { name: "YouTube", src: "https://rise-atseven.transforms.svdcdn.com/production/images/Placeholder-logos/youtube.png?w=400&q=100&auto=format&fit=crop" },
-  { name: "Amazon", src: "https://rise-atseven.transforms.svdcdn.com/production/images/Logos/Social/White/amazon.png?w=400&q=100&auto=format&fit=crop" },
-  { name: "Reddit", src: "https://rise-atseven.transforms.svdcdn.com/production/images/Logos/Social/White/reddit.png?w=400&q=100&auto=format&fit=crop" },
+const PLATFORM_LOGOS = [
+  { name: "Google", src: "/orginal logo/gogle.webp" },
+  { name: "ChatGPT", src: "/orginal logo/chat-gpt.webp" },
+  { name: "Gemini", src: "/orginal logo/gemini.webp" },
+  { name: "TikTok", src: "/orginal logo/tiktok.webp" },
+  { name: "YouTube", src: "/orginal logo/youtube.webp" },
+  { name: "Pinterest", src: "/orginal logo/pinterest.webp" },
+  { name: "Giphy", src: "/orginal logo/giphy.webp" },
+  { name: "Reddit", src: "/orginal logo/reddit.webp" },
+  { name: "Amazon", src: "/orginal logo/amazon.webp" },
+];
+
+const RANDOM_IMAGES = [
+  "/images/hero/hero-bg.png", // Astronaut
+  "/images/hero/hero-bg.webp", // Pooky
 ];
 
 export function Hero() {
+  const [mounted, setMounted] = useState(false);
+  const [heroImage, setHeroImage] = useState(RANDOM_IMAGES[0]);
+
+  useEffect(() => {
+    setMounted(true);
+    // Randomize image on load
+    const randomIndex = Math.floor(Math.random() * RANDOM_IMAGES.length);
+    setHeroImage(RANDOM_IMAGES[randomIndex]);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <section className="relative w-full min-h-screen flex flex-col pt-40 pb-20 px-container overflow-hidden bg-black">
-      {/* Atmospheric Background */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-l from-mint/20 to-transparent blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
-      </div>
+    <section className="relative w-full min-h-screen flex flex-col justify-center items-center pt-32 pb-20 px-container overflow-hidden bg-black">
+      {/* Full-screen Background Image */}
+      <motion.div 
+        key={heroImage}
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 0.4, scale: 1 }}
+        transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+        className="absolute inset-0 z-0"
+      >
+        <Image
+          src={heroImage}
+          alt="Hero Background"
+          fill
+          className="object-cover blur-sm lg:blur-md"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+      </motion.div>
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto">
-        {/* Top Tagline */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex items-center gap-4 mb-8"
-        >
-          <div className="w-12 h-[1px] bg-mint" />
-          <span className="text-mint font-bold uppercase tracking-widest text-[10px]">
-            Award Winning Search-First Agency
-          </span>
-        </motion.div>
+      {/* Awards Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute top-36 md:top-40 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-y-2"
+      >
+        <div className="uppercase text-[9px] md:text-[10px] font-bold tracking-[0.2em] max-w-52 text-balance text-center text-white/30">
+          #1 Most recommended content marketing agency
+        </div>
+        
+        <div className="flex items-center gap-x-6 grayscale opacity-50">
+          <div className="w-56 md:w-72 h-6 md:h-8 relative">
+            <Image
+              src="/images/hero/awards.webp"
+              alt="Awards Recognition"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      </motion.div>
 
-        {/* Main Editorial Headline */}
-        <h1 className="text-pure-white text-[clamp(3.5rem,11vw,14rem)] font-bold leading-[0.85] tracking-[-0.04em] uppercase flex flex-col">
-          <div className="flex flex-wrap items-center gap-x-2">
+      <div className="relative z-10 w-full flex flex-col items-center text-center pt-10 md:pt-16">
+        {/* Main Headline */}
+        <h1 className="text-white text-5xl md:text-7xl lg:text-[7.5rem] font-bold leading-[0.8] tracking-[-0.04em] uppercase flex flex-col items-center">
+          <div className="flex items-center justify-center gap-x-[0.25em]">
             <TextSplitter text="We" delay={0.2} />
             <TextSplitter text="Create" delay={0.3} />
           </div>
-          
-          <div className="flex flex-wrap items-center gap-x-2 -mt-[0.05em]">
+          <div className="flex items-center justify-center gap-x-[0.25em] -mt-1 md:-mt-2">
             <TextSplitter text="Category" delay={0.5} />
             
-            {/* Inline Media Element - REDBULL CARD */}
-            <motion.div 
+            {/* Inline Media Card - Tighter fit */}
+            <motion.div
               initial={{ scale: 0, rotate: -10 }}
               animate={{ scale: 1, rotate: -5 }}
-              transition={{ delay: 1, duration: 0.8, ease: [0.34, 1.56, 0.64, 1] as const }}
-              className="relative inline-block w-[1.2em] h-[0.75em] rounded-[15%] overflow-hidden bg-grey-dark mx-[0.1em] border border-white/10 shadow-2xl"
+              transition={{
+                delay: 0.7,
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+              }}
+              className="relative w-[0.85em] aspect-square bg-grey-800 rounded-[20%] overflow-hidden shadow-2xl border border-white/10"
             >
-              <Image 
-                src="https://rise-atseven.transforms.svdcdn.com/production/images/RedBull-Instagram-Post-45.png?w=800&q=80&auto=format&fit=crop"
-                alt="Editorial Highlight"
+              <Image
+                src={heroImage}
+                alt="Featured Work"
                 fill
-                priority
                 className="object-cover"
               />
             </motion.div>
-            
-            <TextSplitter text="Leaders" delay={0.7} />
+
+            <TextSplitter text="Leaders" delay={0.8} />
           </div>
         </h1>
 
-        {/* Sub-headline / Description */}
-        <div className="mt-12 md:mt-20 flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 1 }}
-            className="text-pure-white/60 text-xl md:text-3xl max-w-2xl font-medium leading-tight"
-          >
-            We help brands win on every searchable platform by chasing consumers, not algorithms.
-          </motion.p>
+        {/* Sub-headline - Tighter margin */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
+          className="mt-4 md:mt-6 text-white/60 text-sm md:text-base lg:text-lg font-medium max-w-2xl text-center tracking-tight"
+        >
+          on every searchable platform
+        </motion.div>
 
-          {/* Platform Logos Strip */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 1 }}
-            className="flex items-center gap-8 md:gap-12 grayscale opacity-40 hover:opacity-100 transition-all duration-500"
-          >
-            {PLATFORMS.map((platform) => (
-              <div key={platform.name} className="relative w-20 h-8 md:w-24 md:h-10">
-                <Image 
-                  src={platform.src}
-                  alt={platform.name}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </motion.div>
+        {/* Platform Logos - Balanced spacing */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.3, duration: 1 }}
+          className="mt-12 md:mt-16 flex flex-wrap justify-center items-center gap-x-10 gap-y-6"
+        >
+          {PLATFORM_LOGOS.map((logo, i) => (
+            <motion.div
+              key={logo.name}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4 + i * 0.05 }}
+              className="relative w-12 h-5 grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.name}
+                fill
+                className="object-contain"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Bottom Labels */}
+      <div className="absolute bottom-10 left-container right-container z-10 flex justify-between items-end text-[9px] md:text-[10px] font-bold uppercase tracking-tight text-white/30">
+        <div className="max-w-[280px] leading-relaxed">
+          Organic media planners creating, distributing & optimising <br/>
+          <span className="text-white/50">search-first</span> content for SEO, Social, PR, Ai and LLM search
+        </div>
+        <div className="text-right leading-relaxed">
+          4 Global Offices serving <br/>
+          UK, USA (New York) & EU
         </div>
       </div>
-      
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="mt-auto pt-20"
-      >
-        <div className="flex items-center gap-4 text-white/30 text-[10px] uppercase font-bold tracking-widest">
-          <span>Scroll to explore</span>
-          <motion.div 
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-4 h-4 flex items-center justify-center"
-          >
-            ↓
-          </motion.div>
-        </div>
-      </motion.div>
     </section>
   );
 }
