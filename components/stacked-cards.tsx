@@ -88,7 +88,7 @@ export function StackedCards() {
           {BLOCKS.map((block, i) => (
             <div
               key={block.id}
-              ref={(el) => (cardsRef.current[i] = el!)}
+              ref={(el) => { cardsRef.current[i] = el!; }}
               className={`absolute inset-0 w-full h-full rounded-3xl p-12 flex flex-col md:flex-row items-center gap-12 shadow-2xl transition-transform duration-500 ${block.bg} ${block.color}`}
               style={{ 
                 transform: `rotate(${block.rotate}deg)`,

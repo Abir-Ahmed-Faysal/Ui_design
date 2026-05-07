@@ -34,7 +34,7 @@ const menuVariants = {
       delay: 0.2,
     },
   },
-};
+} as const;
 
 const linkContainerVariants = {
   animate: {
@@ -49,7 +49,7 @@ const linkContainerVariants = {
       staggerDirection: -1,
     },
   },
-};
+} as const;
 
 const linkVariants = {
   initial: { y: 100, opacity: 0 },
@@ -63,7 +63,7 @@ const linkVariants = {
     opacity: 0,
     transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
   },
-};
+} as const;
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);

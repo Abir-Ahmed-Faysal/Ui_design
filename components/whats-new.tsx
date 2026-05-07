@@ -226,7 +226,7 @@ export function WhatsNew() {
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                  transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] as const }}
                   className="inline-flex flex-wrap items-end text-balance text-[#111111] text-6xl md:text-7xl lg:text-7xl 2xl:text-8xl font-bold tracking-tight leading-[0.9]"
                 >
                   <span className="mr-3">What&apos;s</span>

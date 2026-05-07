@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -53,9 +52,9 @@ export function FeaturedWork() {
   useEffect(() => {
     const sections = gsap.utils.toArray(".project-card");
     
-    sections.forEach((section: any, i) => {
+    sections.forEach((section, i) => {
       ScrollTrigger.create({
-        trigger: section,
+        trigger: section as Element,
         start: "top center",
         end: "bottom center",
         onEnter: () => setActiveIndex(i),

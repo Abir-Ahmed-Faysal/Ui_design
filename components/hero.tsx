@@ -48,7 +48,7 @@ export function Hero() {
             <motion.div 
               initial={{ scale: 0, rotate: -10 }}
               animate={{ scale: 1, rotate: -5 }}
-              transition={{ delay: 1, duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+              transition={{ delay: 1, duration: 0.8, ease: [0.34, 1.56, 0.64, 1] as const }}
               className="relative inline-block w-[1.2em] h-[0.75em] rounded-[15%] overflow-hidden bg-grey-dark mx-[0.1em] border border-white/10 shadow-2xl"
             >
               <Image 

@@ -25,7 +25,7 @@ export function TextSplitter({
           transition={{
             duration: 1.2,
             delay: delay + i * 0.03,
-            ease: [0.76, 0, 0.24, 1],
+            ease: [0.76, 0, 0.24, 1] as const,
           }}
           className="inline-block"
           style={{ whiteSpace: char === " " ? "pre" : "normal" }}
