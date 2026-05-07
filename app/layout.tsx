@@ -51,6 +51,8 @@ export const metadata: Metadata = {
   }
 };
 
+import { SmoothScroll } from "@/components/smooth-scroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,16 +61,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${saans.variable} h-full antialiased bg-deep-black text-pure-white`}
+      className={`${saans.variable} h-full antialiased bg-black text-pure-white`}
     >
       <head>
         <Script src="https://kit.fontawesome.com/711261502f.js" crossOrigin="anonymous" strategy="lazyOnload" />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <CustomCursor />
-        <AnnouncementBar />
-        <Header />
-        {children}
+        <SmoothScroll>
+          <CustomCursor />
+          <AnnouncementBar />
+          <Header />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

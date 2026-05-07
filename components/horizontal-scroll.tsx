@@ -1,65 +1,97 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const PROJECTS = [
-  { id: 1, title: "Next Level Commerce", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
-  { id: 2, title: "Global Footprint", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" },
-  { id: 3, title: "Brand Evolution", img: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=2070&auto=format&fit=crop" },
-  { id: 4, title: "Creative Scale", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop" },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export function HorizontalScroll() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(true); // Default true for SSR safety, updated in effect
+  const containerRef = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile(); // Run once on mount to get correct state
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-  
-  // We use a tall container to allow plenty of scroll room
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+    const pin = gsap.fromTo(
+      containerRef.current,
+      { x: 0 },
+      {
+        x: "-300vw",
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: "+=3000",
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+        },
+      }
+    );
 
-  // Map the vertical scroll progress (0 to 1) into a horizontal translation (-70%)
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+    return () => {
+      pin.kill();
+    };
+  }, []);
 
   return (
-    <section ref={targetRef} className={`relative bg-deep-black ${isMobile ? "h-auto py-24" : "h-[300vh]"}`}>
-      <div className={isMobile ? "relative h-auto flex flex-col" : "sticky top-0 h-screen flex flex-col justify-center overflow-hidden"}>
-        <div className="container mx-auto px-6 mb-12">
-          <h2 className="text-pure-white text-5xl md:text-7xl font-bold uppercase tracking-tighter">Featured Work</h2>
-        </div>
-        
-        <motion.div 
-          style={{ x: isMobile ? "0%" : x }} 
-          className={`flex ${isMobile ? "flex-col gap-12 px-6" : "gap-10 px-[10vw]"}`}
-        >
-          {PROJECTS.map((project) => (
-            <div 
-              key={project.id} 
-              className={`relative overflow-hidden group shrink-0 rounded-2xl cursor-pointer ${
-                isMobile ? "w-full aspect-square flex flex-col justify-end p-8" : "w-[60vw] h-[60vh] flex flex-col justify-end p-10"
-              }`}
-            >
-              <div className="absolute inset-0 bg-black/40 z-10 transition-opacity duration-500 group-hover:bg-black/10" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src={project.img} 
-                alt={project.title} 
-                className="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-700 ease-out group-hover:scale-100" 
+    <section className="overflow-hidden bg-black">
+      <div ref={triggerRef}>
+        <div ref={containerRef} className="flex h-screen w-[400vw] items-center relative">
+          
+          {/* Section 1: Intro Text */}
+          <div className="flex h-full w-screen items-center justify-center px-container">
+            <h2 className="text-pure-white text-[10vw] font-bold uppercase tracking-tighter leading-[0.8] max-w-4xl">
+              Chasing <span className="text-mint">Consumers</span> Not Algorithms
+            </h2>
+          </div>
+
+          {/* Section 2: Large Media Layered */}
+          <div className="flex h-full w-[100vw] items-center justify-center relative">
+            <div className="relative w-[60vw] aspect-video rounded-2xl overflow-hidden shadow-2xl z-10">
+              <Image 
+                src="https://rise-atseven.transforms.svdcdn.com/production/images/driving-demand.jpg?w=1600&q=90&auto=format&fit=crop"
+                alt="Case Study"
+                fill
+                className="object-cover"
               />
-              <h3 className="relative z-20 text-4xl md:text-6xl font-bold text-pure-white uppercase tracking-tighter">
-                {project.title}
-              </h3>
             </div>
-          ))}
-        </motion.div>
+            {/* Overlapping text */}
+            <div className="absolute top-1/4 right-0 z-20 translate-x-1/2">
+               <span className="text-mint text-[15vw] font-bold uppercase tracking-tighter leading-none opacity-50">
+                  Search
+               </span>
+            </div>
+          </div>
+
+          {/* Section 3: More Media */}
+          <div className="flex h-full w-[100vw] items-center justify-around px-container">
+             <div className="w-[30vw] aspect-square relative rounded-2xl overflow-hidden -rotate-6 translate-y-20">
+                <Image 
+                  src="https://rise-atseven.transforms.svdcdn.com/production/images/RedBull-Instagram-Post-45.png?w=800&q=80&auto=format&fit=crop"
+                  alt="Social"
+                  fill
+                  className="object-cover"
+                />
+             </div>
+             <div className="w-[40vw] aspect-video relative rounded-2xl overflow-hidden rotate-3 -translate-y-20">
+                <Image 
+                  src="https://rise-atseven.transforms.svdcdn.com/production/images/Logos/Client/Black/sixt-1.jpg?w=1200&h=800&q=90&auto=format&fit=crop"
+                  alt="Work"
+                  fill
+                  className="object-cover"
+                />
+             </div>
+          </div>
+
+          {/* Section 4: Final Message */}
+          <div className="flex h-full w-screen items-center justify-center px-container">
+            <h3 className="text-pure-white text-6xl md:text-8xl font-bold uppercase tracking-tighter text-center max-w-5xl">
+              Building the future of search-first <br /> <span className="text-mint">content marketing</span>
+            </h3>
+          </div>
+
+        </div>
       </div>
     </section>
   );

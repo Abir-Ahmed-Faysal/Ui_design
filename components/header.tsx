@@ -18,20 +18,20 @@ const NAV_LINKS = [
 ];
 
 const menuVariants = {
-  initial: { x: "100%" },
+  initial: { y: "-100%" },
   animate: {
-    x: 0,
+    y: 0,
     transition: {
       duration: 0.8,
       ease: [0.76, 0, 0.24, 1],
     },
   },
   exit: {
-    x: "100%",
+    y: "-100%",
     transition: {
       duration: 0.8,
       ease: [0.76, 0, 0.24, 1],
-      delay: 0.2, // Wait for links to exit
+      delay: 0.2,
     },
   },
 };
@@ -40,7 +40,7 @@ const linkContainerVariants = {
   animate: {
     transition: {
       staggerChildren: 0.05,
-      delayChildren: 0.3,
+      delayChildren: 0.4,
     },
   },
   exit: {
@@ -52,12 +52,14 @@ const linkContainerVariants = {
 };
 
 const linkVariants = {
-  initial: { opacity: 0 },
+  initial: { y: 100, opacity: 0 },
   animate: {
+    y: 0,
     opacity: 1,
-    transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
+    transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
   },
   exit: {
+    y: 100,
     opacity: 0,
     transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] },
   },
@@ -69,7 +71,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -81,36 +83,33 @@ export function Header() {
     } else {
       document.body.style.overflow = "unset";
     }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
   }, [isMenuOpen]);
 
   return (
     <>
       <header
-        className={`fixed top-10 left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled || isMenuOpen ? "backdrop-blur-md bg-deep-black/60" : "bg-transparent"
+        className={`fixed top-10 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled || isMenuOpen ? "bg-black/80 backdrop-blur-xl border-b border-white/5 h-20" : "bg-transparent h-24"
         }`}
       >
-        <div className="container mx-auto px-6 h-24 flex items-center justify-between">
+        <div className="container-fluid px-container h-full flex items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="relative z-[60] flex w-32 md:w-40 text-pure-white">
+            <Link href="/" className="relative z-[60] flex w-32 md:w-40 text-pure-white hover:text-mint transition-colors duration-300">
               <Logo />
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center ml-10 space-x-1">
+            <nav className="hidden xl:flex items-center ml-12 space-x-1">
               {NAV_LINKS.filter(l => l.label !== "Get in touch").map(link => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-pure-white px-4 py-2 font-medium tracking-tight hover:text-gray-300 transition-colors text-sm"
+                  className="text-pure-white px-4 py-2 font-medium tracking-tight hover:text-mint transition-colors text-sm uppercase"
                 >
                   {link.label}
                   {link.label === "Work" && (
-                    <span className="inline-flex items-center justify-center bg-[#a6ffed] text-deep-black text-[10px] px-1.5 py-0.5 rounded-full ml-1 absolute -mt-3">
-                      25
+                    <span className="inline-flex items-center justify-center bg-mint text-black text-[9px] px-1.5 py-0.5 rounded-full ml-1 absolute -mt-2 font-bold">
+                      24
                     </span>
                   )}
                 </Link>
@@ -118,41 +117,27 @@ export function Header() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4 relative z-[60]">
+          <div className="flex items-center gap-6 relative z-[60]">
             <Link 
               href="/connect-with-us"
-              className="hidden md:inline-flex group items-center justify-center bg-pure-white text-deep-black px-6 py-2.5 rounded-full font-medium hover:scale-105 transition-transform duration-300 overflow-hidden relative"
+              className="hidden md:inline-flex group items-center justify-center bg-mint text-black px-8 py-3 rounded-full font-bold hover:scale-105 transition-all duration-300 relative overflow-hidden"
             >
-              <div className="relative flex items-center">
-                <span>Get in touch</span>
-                <svg className="ml-2 w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 19L19 5M19 5v10M19 5H9" />
+              <span className="relative z-10 flex items-center gap-2">
+                Get in touch
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 19L19 5M19 5v10M19 5H9" />
                 </svg>
-              </div>
+              </span>
             </Link>
 
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="inline-flex items-center justify-center w-12 h-8 relative z-[60]"
-            aria-label="Toggle menu"
-          >
-            <div className="flex w-5 h-2 flex-col items-start justify-between">
-              <div
-                className={`w-full h-px relative -top-px transition-transform duration-500 transform ${
-                  isMenuOpen ? "rotate-45 translate-y-1" : "rotate-0"
-                }`}
-              >
-                <div className="w-full h-0.5 bg-pure-white"></div>
-              </div>
-              <div
-                className={`w-full h-px transition-transform duration-500 transform ${
-                  isMenuOpen ? "-rotate-45 -translate-y-1" : "rotate-0"
-                }`}
-              >
-                <div className="w-full h-0.5 bg-pure-white"></div>
-              </div>
-            </div>
-          </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="inline-flex flex-col items-end justify-center w-10 h-10 group"
+              aria-label="Toggle menu"
+            >
+              <div className={`h-0.5 bg-pure-white transition-all duration-500 mb-1.5 ${isMenuOpen ? "w-8 rotate-45 translate-y-2" : "w-8"}`} />
+              <div className={`h-0.5 bg-pure-white transition-all duration-500 ${isMenuOpen ? "w-8 -rotate-45" : "w-5 group-hover:w-8"}`} />
+            </button>
           </div>
         </div>
       </header>
@@ -164,14 +149,18 @@ export function Header() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed inset-0 z-40 bg-deep-black text-pure-white flex flex-col justify-center px-6 md:px-16 lg:px-32"
+            className="fixed inset-0 z-40 bg-black text-pure-white flex flex-col justify-center pt-24 px-container"
           >
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+               {/* Editorial background elements if needed */}
+            </div>
+            
             <motion.nav
               variants={linkContainerVariants}
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col gap-4 md:gap-6"
+              className="flex flex-col gap-2"
             >
               {NAV_LINKS.map((link) => (
                 <div key={link.label} className="overflow-hidden">
@@ -179,10 +168,10 @@ export function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="group text-5xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tighter transition-colors inline-block relative"
+                      className="group text-5xl sm:text-7xl md:text-8xl font-bold uppercase tracking-tighter transition-all inline-block relative hover:text-mint"
                     >
                       {link.label}
-                      <span className="absolute left-0 bottom-0 w-full h-[0.08em] bg-pure-white origin-left scale-x-0 transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100" />
+                      <span className="absolute left-0 bottom-0 w-full h-[0.05em] bg-mint origin-left scale-x-0 transition-transform duration-500 ease-custom group-hover:scale-x-100" />
                     </Link>
                   </motion.div>
                 </div>
